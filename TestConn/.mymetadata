@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="TestConn"
+  id="myeclipse.1541995272856"
+  context-root="/TestConn"
+  j2ee-spec="5.0"
+  archive="TestConn.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+
