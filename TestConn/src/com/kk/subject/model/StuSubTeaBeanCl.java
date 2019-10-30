@@ -956,6 +956,7 @@ import java.util.ArrayList;
 /*  963:     */   
 /*  964:     */   public void auto()
 /*  965:     */   {
+					
 /*  966:1072 */     for (int i = 2; i <= 9; i++)
 /*  967:     */     {
 /*  968:1073 */       System.out.println("第"+(i-1)+"次循环" );
@@ -984,8 +985,8 @@ import java.util.ArrayList;
 /*  987:1090 */             "' and sub_id='" + 
 /*  988:1091 */             subid + 
 /*  989:1092 */             "' and a.state='"+j1+"' and a.stu_id not in (select stu_id from t_stu_sub  where finally=1 )and a.sub_id not in (select sub_id from t_stu_sub  where finally=1) order by state, total";
-/*  990:1093 */           this.ct1 = new ConnDb().getConn();
-/*  991:1094 */           this.ps1 = this.ct1.prepareStatement(sql4);
+/*  991:1094 */ 		  this.ct1 = new ConnDb().getConn();
+						  this.ps1 = this.ct1.prepareStatement(sql4);
 /*  992:1095 */           this.rs1 = this.ps1.executeQuery();
 /*  993:1096 */           int m = 0;
 /*  994:1097 */           while (this.rs1.next()) {
@@ -1016,6 +1017,7 @@ import java.util.ArrayList;
 /* 1017:1118 */             this.ct2 = new ConnDb().getConn();
 /* 1018:1119 */             this.ps2 = this.ct2.prepareStatement(sql5);
 /* 1019:1120 */             this.ps2.executeUpdate();
+							ct2.close();
 /* 1020:     */           }
 /* 1021:     */           else
 /* 1022:     */           {
@@ -1025,8 +1027,7 @@ import java.util.ArrayList;
 /* 1026:1125 */               subid + 
 /* 1027:1126 */               "'and a.state<>'0' and a.stu_id not in (select stu_id from t_stu_sub  where finally=1 )and a.sub_id not in (select sub_id from t_stu_sub  where finally=1) order by state, total";
 /* 1028:1127 */             
-
-							this.ct3 = new ConnDb().getConn();
+						    this.ct3 = new ConnDb().getConn();
 /* 1029:1128 */             this.ps3 = this.ct3.prepareStatement(sql3);
 /* 1030:1129 */             this.rs3 = this.ps3.executeQuery();
 /* 1031:1130 */             int count1 = 0;
@@ -1040,6 +1041,7 @@ import java.util.ArrayList;
 /* 1039:1137 */                 subStuId[n] + "XX" + StuId[n]);
 /* 1040:1138 */               n++;
 /* 1041:     */             }
+							
 /* 1042:1140 */             int min = total[0];
 /* 1043:1141 */             int minid = 0;
 /* 1044:1142 */             for (int j = 0; j < total.length; j++) {
@@ -1052,14 +1054,21 @@ import java.util.ArrayList;
 /* 1051:1148 */             subid = subStuId[minid];
 /* 1052:1149 */             stuid = StuId[minid];
 /* 1053:1150 */             System.out.println("更新为" + subid + "XX" + stuid);
+
 /* 1054:1151 */             String sql6 = "update t_stu_sub set finally='1' where sub_id='" + 
 /* 1055:1152 */               subid + "' and stu_id='" + stuid + "' order by state, total" ;
 						    //System.out.println(stuid+ "xxx"+subid +" finally=1 , i = "+i  );
+/* 1017:1118 */             this.ct4 = new ConnDb().getConn();
 
-/* 1056:1153 */             this.ct4 = new ConnDb().getConn();
 /* 1057:1154 */             this.ps4 = this.ct4.prepareStatement(sql6);
 /* 1058:1155 */             this.ps4.executeUpdate();
+							rs3.close();
+							ps3.close();
+							ct3.close();
+							ps4.close();
+							ct4.close();
 /* 1059:     */           }
+
 /* 1060:     */         }
 						
 /* 1061:     */       }

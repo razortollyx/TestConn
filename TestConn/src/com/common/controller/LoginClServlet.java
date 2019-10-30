@@ -52,7 +52,7 @@ public class LoginClServlet
         if (tbc.checkUser(id, psw))
         {
           TeacherBean tb = tbc.getTeacherById(id);
-          
+            
           session.setAttribute("user", tb);
           session.setAttribute("yuanxi", tb.getDepartment());
           session.setAttribute("teaname", tb.getName());
@@ -66,6 +66,7 @@ public class LoginClServlet
         StudentBeanCl sbc = new StudentBeanCl();
         if (sbc.checkUser(id, psw))
         {
+          
           StudentBean sb = new StudentBeanCl().getStudentById(id);
           session.setAttribute("user", sb);
           System.out.println(sb.getId());
@@ -75,9 +76,12 @@ public class LoginClServlet
           String gradute = new SetBeanCl().getAllinfo(sb.getYuanxi())
             .getGraduateGrade();
           System.out.println(gradute);
+          err = "目前无法访问";
           return;
+          
         }
         err = "用户名或密码不正确！";
+        
       }
       else if (type.equals("admin"))
       {
